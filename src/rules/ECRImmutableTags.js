@@ -10,14 +10,30 @@ exports.check = async function (context) {
             if (resource.type === 'aws::ecr::types::repository') {
                 let isImmutable = false;
 
+            try {
+
+
                 if (_.has(resource.properties, 'image_tag_mutability') && resource.properties.image_tag_mutability =="IMMUTABLE") {
                     isImmutable = true;
                 }
                 if (isImmutable) {
                     problems.push({
-                        message: `AWS ECR : ${resource.name} does not have push scan enabled`
+                        message: `AWS ECR : ${resource.name} does not have the tags set as immutable`
                     })
                 }
+                }
+
+            catch(e) {
+
+                    console.error(e.message);
+                }
+        
+            finally{
+        
+                    continue
+        
+                }
+
             }
         }
     }

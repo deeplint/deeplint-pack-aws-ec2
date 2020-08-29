@@ -10,6 +10,9 @@ exports.check = async function (context) {
             if (resource.type === 'aws::ec2::types::ebsinfo') {
                 let encSupported = false;
 
+
+             try{   
+
                 if (_.has(resource.properties, 'encryption_support') && resource.properties.encryption_support =="supported") {
                     encSupported = true;
                 }
@@ -18,6 +21,21 @@ exports.check = async function (context) {
                         message: `AWS EBS : ${resource.name} does not support encryption`
                     })
                 }
+
+            }
+            
+            catch(e) {
+
+                    console.error(e.message);
+
+            }
+
+            finally{
+        
+                    continue
+        
+            }
+
             }
         }
     }
