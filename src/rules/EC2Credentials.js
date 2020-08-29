@@ -12,6 +12,8 @@ exports.check = async function (context) {
             if (resource.type === 'aws::ec2::instance' || resource.type === 'aws::ec2::host') {
                 let hasKeys = false;
 
+
+            try{    
                 if (_.has(resource.properties, 'user_data') && !(accessRex.test(resource.properties.user_data) && !(secretRex.test(resource.properties.user_data)) )) {
                     hasKeys = true;
                 }
@@ -20,6 +22,20 @@ exports.check = async function (context) {
                         message: `AWS EC2 Instace or Host : ${resource.name} contains static access or secret keys`
                     })
                 }
+            }
+            
+            catch(e) {
+
+                    console.error(e.message);
+
+            }
+
+            finally{
+        
+                    continue
+        
+            }
+
             }
         }
     }

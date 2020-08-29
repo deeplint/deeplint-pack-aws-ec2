@@ -10,6 +10,9 @@ exports.check = async function (context) {
             if (resource.type === 'aws::ecr::types::imagescanningconfiguration') {
                 let isScanEnabled = false;
 
+
+            try {
+
                 if (_.has(resource.properties, 'scan_on_push') && resource.properties.scan_on_push ==true) {
                     isScanEnabled = true;
                 }
@@ -18,6 +21,23 @@ exports.check = async function (context) {
                         message: `AWS ECR : ${resource.name} does not have push scan enabled`
                     })
                 }
+
+            }
+
+            catch(e) {
+
+                    console.error(e.message);
+
+            }
+
+            finally{
+        
+                    continue
+        
+            }
+
+
+
             }
         }
     }
