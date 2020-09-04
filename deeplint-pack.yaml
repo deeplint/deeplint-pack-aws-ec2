@@ -88,6 +88,28 @@ rules:
       description: "Ensure container insights are enabled on ECS cluster"
       tags:
         - "security"
+
+
+  SecurityGroupRuleDescription:
+    type: nodejs
+    uses: src/rules/SecurityGroupRuleDescription.js
+    main: check
+    meta:
+      type: "warn"
+      description: "Ensure every security groups rule has a description"
+      tags:
+        - "security"
+
+  SecurityGroupUnrestrictedIngressPort:
+    type: nodejs
+    uses: src/rules/SecurityGroupUnrestrictedIngressPort.js
+    main: check
+    meta:
+      type: "warn"
+      description: "Ensure no security groups allow ingress from 0.0.0.0:0 to specified port"
+      tags:
+        - "security"
+    
 #actions:
 #  dummy-fix:
 #    type: nodejs
