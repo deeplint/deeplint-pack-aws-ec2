@@ -19,7 +19,7 @@ scanners:
 rules:
   dummy-rule-1:
     type: nodejs
-    uses: src/rule/dummy-rule-1.js
+    uses: src/rules/dummy-rule-1.js
     main: check
     meta:
       type: "warn"
@@ -27,6 +27,89 @@ rules:
       tags:
         - "security"
 
+
+  EBSEncryption:
+    type: nodejs
+    uses: src/rules/EBSEncryption.js
+    main: check
+    meta:
+      type: "warn"
+      description: "Ensure all data stored in the EBS is securely encrypted"
+      tags:
+        - "security"
+
+  EC2Credentials:
+    type: nodejs
+    uses: src/rules/EC2Credentials.js
+    main: check
+    meta:
+      type: "warn"
+      description: "Ensure no hard coded AWS access key and and secret key exists in EC2 user data"
+      tags:
+        - "security"
+  
+  ECRImageScanning:
+    type: nodejs
+    uses: src/rules/ECRImageScanning.js
+    main: check
+    meta:
+      type: "warn"
+      description: "Ensure ECR image scanning on push is enabled"
+      tags:
+        - "security"
+
+  ECRImmutableTags:
+    type: nodejs
+    uses: src/rules/ECRImmutableTags.js
+    main: check
+    meta:
+      type: "warn"
+      description: "Ensure ECR Image Tags are immutable"
+      tags:
+        - "security"
+  
+  ECRPolicy:
+    type: nodejs
+    uses: src/rules/ECRPolicy.js
+    main: check
+    meta:
+      type: "warn"
+      description: "Ensure ECR policy is not set to public"
+      tags:
+        - "security"
+
+
+  ECSClusterContainerInsights:
+    type: nodejs
+    uses: src/rules/ECSClusterContainerInsights.js
+    main: check
+    meta:
+      type: "warn"
+      description: "Ensure container insights are enabled on ECS cluster"
+      tags:
+        - "security"
+
+
+  SecurityGroupRuleDescription:
+    type: nodejs
+    uses: src/rules/SecurityGroupRuleDescription.js
+    main: check
+    meta:
+      type: "warn"
+      description: "Ensure every security groups rule has a description"
+      tags:
+        - "security"
+
+  SecurityGroupUnrestrictedIngressPort:
+    type: nodejs
+    uses: src/rules/SecurityGroupUnrestrictedIngressPort.js
+    main: check
+    meta:
+      type: "warn"
+      description: "Ensure no security groups allow ingress from 0.0.0.0:0 to specified port"
+      tags:
+        - "security"
+    
 #actions:
 #  dummy-fix:
 #    type: nodejs
