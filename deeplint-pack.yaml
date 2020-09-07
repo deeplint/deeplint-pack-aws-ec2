@@ -109,6 +109,17 @@ rules:
       description: "Ensure no security groups allow ingress from 0.0.0.0:0 to specified port"
       tags:
         - "security"
+
+
+  ALBListenerHTTPS:
+    type: nodejs
+    uses: src/rules/Remaining-Services/SecurityGroupUnrestrictedIngressPort.js
+    main: check
+    meta:
+      type: "warn"
+      description: "Ensure ALB protocol is HTTPS"
+      tags:
+        - "security"
     
 #actions:
 #  dummy-fix:
