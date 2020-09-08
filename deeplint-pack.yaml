@@ -121,6 +121,26 @@ rules:
       tags:
         - "security"
     
+
+  APIGatewayAccessLogging:
+    type: nodejs
+    uses: src/rules/Remaining-Services/APIGatewayAccessLogging.js
+    main: check
+    meta:
+      type: "warn"
+      description: "Ensure API Gateway has Access Logging enabled"
+      tags:
+        - "security"
+
+  APIGatewayAuthorization:
+    type: nodejs
+    uses: src/rules/Remaining-Services/APIGatewayAuthorization.js
+    main: check
+    meta:
+      type: "warn"
+      description: "Ensure there is no open access to back-end resources through API"
+      tags:
+        - "security"
 #actions:
 #  dummy-fix:
 #    type: nodejs
