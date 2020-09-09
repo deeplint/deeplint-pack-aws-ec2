@@ -141,6 +141,16 @@ rules:
       description: "Ensure there is no open access to back-end resources through API"
       tags:
         - "security"
+
+  APIGatewayXray:
+    type: nodejs
+    uses: src/rules/Remaining-Services/APIGatewayXray.js
+    main: check
+    meta:
+      type: "warn"
+      description: "Ensure API Gateway has X-Ray Tracing enabled"
+      tags:
+        - "security"
 #actions:
 #  dummy-fix:
 #    type: nodejs
