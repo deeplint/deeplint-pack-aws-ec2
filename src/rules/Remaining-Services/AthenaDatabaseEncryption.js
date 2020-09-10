@@ -7,16 +7,18 @@ exports.check = async function (context) {
     for (const key of Object.keys(resources)) {
         for (const resource of resources[key]) {
             
-                let isXrayEnabled = false;
+                let isEncrypted = false;
 
                 try {
 
-                if (resource.type === 'aws::apigateway::types::stage') {
+                if (resource.type === 'aws::athena::types::encryptionconfiguration') {
+                
 
-                if (_.has(resource.properties, 'tracing_enabled') && resource.properties.tracing_enabled == true)
+
+                if (_.has(resource.properties, 'encryption_option') && resource.properties.encryption_option != "")
                 {
 
-                    isXrayEnabled = true
+                    isEncrypted = true
                     continue 
                 }
 
@@ -29,9 +31,9 @@ exports.check = async function (context) {
                 }
         
             finally{
-                if (!isXrayEnabled) {
+                if (!isEncrypted) {
                     problems.push({
-                        message: `AWS API Gateway: ${resource.name} does not have X-Ray enabled`
+                        message: `AWS Athena: ${resource.name} does not have the encryption enabled for the data in rest`
                     })
                 }
                     continue

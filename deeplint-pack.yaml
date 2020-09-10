@@ -151,6 +151,36 @@ rules:
       description: "Ensure API Gateway has X-Ray Tracing enabled"
       tags:
         - "security"
+
+  AthenaDatabaseEncryption:
+    type: nodejs
+    uses: src/rules/Remaining-Services/AthenaDatabaseEncryption.js
+    main: check
+    meta:
+      type: "warn"
+      description: "Ensure Athena Database is encrypted at rest (default is unencrypted)"
+      tags:
+        - "security"
+
+  AthenaWorkgroupConfiguration:
+    type: nodejs
+    uses: src/rules/Remaining-Services/AthenaWorkgroupConfiguration.js
+    main: check
+    meta:
+      type: "warn"
+      description: "Ensure Athena Workgroup should enforce configuration to prevent client disabling encryption"
+      tags:
+        - "security"
+
+  CloudfrontDistributionEncryption:
+    type: nodejs
+    uses: src/rules/Remaining-Services/CloudfrontDistributionEncryption.js
+    main: check
+    meta:
+      type: "warn"
+      description: "Ensure cloudfront distribution ViewerProtocolPolicy is set to HTTPS"
+      tags:
+        - "security"
 #actions:
 #  dummy-fix:
 #    type: nodejs

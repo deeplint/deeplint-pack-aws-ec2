@@ -7,16 +7,18 @@ exports.check = async function (context) {
     for (const key of Object.keys(resources)) {
         for (const resource of resources[key]) {
             
-                let isXrayEnabled = false;
+                let isEnforced = false;
 
                 try {
 
-                if (resource.type === 'aws::apigateway::types::stage') {
+                if (resource.type === 'aws::athena::types::workgroupconfiguration') {
+                
 
-                if (_.has(resource.properties, 'tracing_enabled') && resource.properties.tracing_enabled == true)
+
+                if (_.has(resource.properties, 'enforce_work_group_configuration') && resource.properties.enforce_work_group_configuration == true)
                 {
 
-                    isXrayEnabled = true
+                    isEnforced = true
                     continue 
                 }
 
@@ -29,9 +31,9 @@ exports.check = async function (context) {
                 }
         
             finally{
-                if (!isXrayEnabled) {
+                if (!isEnforced) {
                     problems.push({
-                        message: `AWS API Gateway: ${resource.name} does not have X-Ray enabled`
+                        message: `AWS Athena Workgroup: ${resource.name} does not enforce the encryption on clients`
                     })
                 }
                     continue
